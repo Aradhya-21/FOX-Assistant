@@ -6,10 +6,15 @@
 const state = {
     isListening: false,
     isSpeaking: false,
+    isAwake: false,
+    isWakeListening: false,
     recognition: null,
+    wakeRecognition: null,
     synthesis: window.speechSynthesis,
     speechSupported: false,
 };
+
+const WAKE_WORDS = ['fox', 'foks', 'box', 'fax', 'folks'];
 
 // ── DOM Elements ──
 const $ = (sel) => document.querySelector(sel);
@@ -24,11 +29,21 @@ const vizLabel = $('#vizLabel');
 const toastContainer = $('#toastContainer');
 const bgParticles = $('#bgParticles');
 
+// Wake overlay elements
+const wakeOverlay = $('#wakeOverlay');
+const wakeMicBtn = $('#wakeMicBtn');
+const wakeMicLabel = $('#wakeMicLabel');
+const wakeSkipBtn = $('#wakeSkipBtn');
+const wakeStateEl = $('#wakeState');
+const wakeSubtitle = $('#wakeSubtitle');
+
 // ── Initialisation ──
 document.addEventListener('DOMContentLoaded', () => {
     createBackgroundParticles();
     initSpeechRecognition();
+    initWakeWordRecognition();
     bindEvents();
+    bindWakeEvents();
 });
 
 // ── Background Particles ──
@@ -85,6 +100,131 @@ function initSpeechRecognition() {
             stopListening();
         }
     };
+}
+
+// ── Wake Word Recognition ──
+function initWakeWordRecognition() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) return;
+
+    state.wakeRecognition = new SpeechRecognition();
+    state.wakeRecognition.lang = 'en-IN';
+    state.wakeRecognition.interimResults = true;
+    state.wakeRecognition.maxAlternatives = 5;
+    state.wakeRecognition.continuous = false;
+
+    state.wakeRecognition.onresult = (event) => {
+        for (let i = 0; i < event.results.length; i++) {
+            for (let j = 0; j < event.results[i].length; j++) {
+                const transcript = event.results[i][j].transcript.toLowerCase().trim();
+                const words = transcript.split(/\s+/);
+                const detected = words.some(w => WAKE_WORDS.some(wk => w.includes(wk)));
+                if (detected) {
+                    stopWakeListening();
+                    activateAssistant();
+                    return;
+                }
+            }
+        }
+    };
+
+    state.wakeRecognition.onerror = (event) => {
+        if (event.error === 'no-speech' || event.error === 'aborted') {
+            // Silently restart
+            if (state.isWakeListening && !state.isAwake) {
+                setTimeout(() => startWakeListening(), 300);
+            }
+        } else if (event.error === 'not-allowed') {
+            wakeMicLabel.textContent = 'Mic access denied';
+            wakeMicBtn.classList.remove('listening');
+            state.isWakeListening = false;
+        }
+    };
+
+    state.wakeRecognition.onend = () => {
+        // Auto-restart if still in wake listening mode
+        if (state.isWakeListening && !state.isAwake) {
+            setTimeout(() => {
+                try {
+                    state.wakeRecognition.start();
+                } catch (e) { /* ignore */ }
+            }, 200);
+        }
+    };
+}
+
+function startWakeListening() {
+    if (!state.speechSupported || state.isAwake) return;
+
+    state.isWakeListening = true;
+    wakeMicBtn.classList.add('listening');
+    wakeMicLabel.textContent = 'Listening for "FOX"...';
+    wakeSubtitle.innerHTML = 'Say <strong>"FOX"</strong> now...';
+    setStatus('Waiting for wake word', '');
+
+    try {
+        state.wakeRecognition.start();
+    } catch (e) { /* already running */ }
+}
+
+function stopWakeListening() {
+    state.isWakeListening = false;
+    wakeMicBtn.classList.remove('listening');
+    wakeMicLabel.textContent = 'Click to listen';
+
+    try {
+        state.wakeRecognition.stop();
+    } catch (e) { /* ignore */ }
+}
+
+function activateAssistant() {
+    state.isAwake = true;
+    wakeStateEl.textContent = 'waking up!';
+    wakeSubtitle.innerHTML = '✅ Wake word detected!';
+
+    // Animate the wake-up
+    setTimeout(() => {
+        wakeOverlay.classList.add('hidden');
+        setStatus('Idle', '');
+        speakResponse('FOX activated. I am listening.');
+
+        // Add wake-up message to chat
+        const html = `
+            <p>🦊 <strong>FOX is awake!</strong> I'm ready to help.</p>
+            <div class="info-snippet">
+                <p class="info-body">I'm listening for your commands now. You can use voice (click the mic) or type in the input box. Say <strong>"sleep"</strong> to put me back to sleep mode.</p>
+            </div>
+        `;
+        addAssistantMessage(html, null);
+    }, 600);
+}
+
+function sleepAssistant() {
+    state.isAwake = false;
+    stopListening();
+    state.synthesis.cancel();
+
+    wakeOverlay.classList.remove('hidden');
+    wakeStateEl.textContent = 'sleeping';
+    wakeSubtitle.innerHTML = 'Say <strong>"FOX"</strong> to wake me up';
+    wakeMicLabel.textContent = 'Click to listen';
+    setStatus('Sleeping', '');
+}
+
+// ── Wake Event Bindings ──
+function bindWakeEvents() {
+    wakeMicBtn.addEventListener('click', () => {
+        if (state.isWakeListening) {
+            stopWakeListening();
+        } else {
+            startWakeListening();
+        }
+    });
+
+    wakeSkipBtn.addEventListener('click', () => {
+        stopWakeListening();
+        activateAssistant();
+    });
 }
 
 // ── Event Bindings ──
@@ -180,6 +320,7 @@ const INTENTS = {
     wiki:  ['wikipedia', 'wiki', 'tell me about'],
     open:  ['open', 'launch', 'go to'],
     map:   ['map', 'maps', 'google map', 'navigate', 'location', 'directions'],
+    sleep: ['sleep', 'go to sleep', 'nap', 'hibernate'],
     exit:  ['exit', 'stop', 'quit', 'goodbye', 'bye'],
 };
 
@@ -219,6 +360,9 @@ function handleCommand(query) {
                 break;
             case 'map':
                 handleMap(query);
+                break;
+            case 'sleep':
+                handleSleep();
                 break;
             case 'exit':
                 handleExit();
@@ -474,6 +618,22 @@ function handleMap(query) {
     `;
     addAssistantMessage(html, text);
     window.open(url, '_blank');
+}
+
+function handleSleep() {
+    const text = "Going to sleep. Say 'FOX' to wake me up.";
+    const html = `
+        <p>🦊 <strong>Going to sleep.</strong></p>
+        <div class="info-snippet">
+            <p class="info-body">I'm entering sleep mode. Say <strong>"FOX"</strong> when you need me again.</p>
+        </div>
+    `;
+    addAssistantMessage(html, text);
+    
+    // Transition back to sleep overlay
+    setTimeout(() => {
+        sleepAssistant();
+    }, 2000);
 }
 
 function handleExit() {

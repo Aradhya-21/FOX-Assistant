@@ -20,6 +20,60 @@
     <!-- Animated background particles -->
     <div class="bg-particles" id="bgParticles"></div>
 
+    <!-- Wake Word Overlay -->
+    <div class="wake-overlay" id="wakeOverlay">
+        <div class="wake-content">
+            <div class="wake-fox" id="wakeFox">
+                <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 8L20 28L8 24Z" fill="url(#wEarGrad)" stroke="#FF6B35" stroke-width="1.5"/>
+                    <path d="M52 8L44 28L56 24Z" fill="url(#wEarGrad)" stroke="#FF6B35" stroke-width="1.5"/>
+                    <ellipse cx="32" cy="36" rx="20" ry="18" fill="url(#wFaceGrad)" stroke="#FF8C42" stroke-width="1.5"/>
+                    <path d="M15 14L20 26L11 23Z" fill="#FFB088" opacity="0.6"/>
+                    <path d="M49 14L44 26L53 23Z" fill="#FFB088" opacity="0.6"/>
+                    <ellipse cx="24" cy="33" rx="3.5" ry="4" fill="#1a1a2e"/>
+                    <ellipse cx="40" cy="33" rx="3.5" ry="4" fill="#1a1a2e"/>
+                    <circle cx="25.5" cy="31.5" r="1.2" fill="white" opacity="0.9"/>
+                    <circle cx="41.5" cy="31.5" r="1.2" fill="white" opacity="0.9"/>
+                    <ellipse cx="32" cy="41" rx="3" ry="2" fill="#2d2d44"/>
+                    <path d="M29 44 Q32 47 35 44" stroke="#2d2d44" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+                    <!-- Sleeping eyes (zzz) -->
+                    <g class="wake-zzz" id="wakeZzz">
+                        <text x="48" y="18" fill="#FF8C42" font-size="8" font-weight="bold" opacity="0.8">z</text>
+                        <text x="54" y="12" fill="#FF8C42" font-size="10" font-weight="bold" opacity="0.6">z</text>
+                        <text x="58" y="4" fill="#FF8C42" font-size="12" font-weight="bold" opacity="0.4">z</text>
+                    </g>
+                    <defs>
+                        <linearGradient id="wEarGrad" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#FF8C42"/>
+                            <stop offset="100%" stop-color="#FF6B35"/>
+                        </linearGradient>
+                        <linearGradient id="wFaceGrad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#FFB088"/>
+                            <stop offset="60%" stop-color="#FF8C42"/>
+                            <stop offset="100%" stop-color="#FF6B35"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <h2 class="wake-title">FOX is <span id="wakeState">sleeping</span></h2>
+            <p class="wake-subtitle" id="wakeSubtitle">Say <strong>"FOX"</strong> to wake me up</p>
+            <div class="wake-mic-area" id="wakeMicArea">
+                <button class="wake-mic-btn" id="wakeMicBtn" title="Click to start listening for wake word">
+                    <div class="wake-mic-ring"></div>
+                    <div class="wake-mic-ring ring-2"></div>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
+                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                        <line x1="12" y1="19" x2="12" y2="23"></line>
+                        <line x1="8" y1="23" x2="16" y2="23"></line>
+                    </svg>
+                </button>
+                <span class="wake-mic-label" id="wakeMicLabel">Click to listen</span>
+            </div>
+            <button class="wake-skip-btn" id="wakeSkipBtn">Or click here to wake up manually</button>
+        </div>
+    </div>
+
     <!-- Main container -->
     <div class="app-container">
 
