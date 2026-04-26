@@ -230,6 +230,35 @@ function handleCommand(query) {
     }, 600 + Math.random() * 400);
 }
 
+// ── Known Sites Database ──
+const KNOWN_SITES = {
+    youtube:    { icon: '▶️',  desc: 'YouTube is the world\'s largest video-sharing platform where you can watch, upload, and share videos on virtually any topic — from music and tutorials to live streams and documentaries.' },
+    google:     { icon: '🔍', desc: 'Google is the world\'s most popular search engine, handling over 8.5 billion searches daily. It also offers Gmail, Google Drive, Maps, and many other services.' },
+    github:     { icon: '🐙', desc: 'GitHub is the leading platform for software development and version control using Git. Over 100 million developers use it to collaborate on open-source and private projects.' },
+    facebook:   { icon: '👥', desc: 'Facebook (Meta) is the world\'s largest social networking platform, connecting over 3 billion people. Share updates, photos, join groups, and stay in touch with friends and family.' },
+    instagram:  { icon: '📸', desc: 'Instagram is a photo and video sharing social media platform owned by Meta. Discover stories, reels, and content from creators, brands, and friends worldwide.' },
+    twitter:    { icon: '🐦', desc: 'X (formerly Twitter) is a social media platform for real-time public conversation. Follow news, trends, and engage with people around the world in short-form posts.' },
+    x:          { icon: '🐦', desc: 'X (formerly Twitter) is a social media platform for real-time public conversation. Follow news, trends, and engage with people around the world in short-form posts.' },
+    linkedin:   { icon: '💼', desc: 'LinkedIn is the world\'s largest professional networking platform with over 900 million members. Build your career, find jobs, connect with professionals, and grow your business.' },
+    reddit:     { icon: '🤖', desc: 'Reddit is a vast network of communities (subreddits) organized around topics and interests. Dive into discussions, share content, and discover niche communities on any subject.' },
+    netflix:    { icon: '🎬', desc: 'Netflix is a leading streaming entertainment service offering a vast library of movies, TV series, documentaries, and original content across multiple genres and languages.' },
+    spotify:    { icon: '🎵', desc: 'Spotify is the world\'s most popular audio streaming platform with over 600 million users. Discover music, podcasts, and audiobooks from artists and creators worldwide.' },
+    amazon:     { icon: '🛒', desc: 'Amazon is the world\'s largest online marketplace. Shop millions of products, from electronics and books to groceries, with fast delivery and competitive pricing.' },
+    wikipedia:  { icon: '📚', desc: 'Wikipedia is a free, multilingual online encyclopedia maintained by volunteer editors. It has over 60 million articles across 300+ languages on virtually every topic.' },
+    stackoverflow: { icon: '💻', desc: 'Stack Overflow is the largest Q&A community for programmers. Find answers to coding questions, share knowledge, and learn from millions of developer discussions.' },
+    whatsapp:   { icon: '💬', desc: 'WhatsApp is a popular messaging app owned by Meta, used by over 2 billion people worldwide for text messaging, voice calls, video calls, and sharing media.' },
+    discord:    { icon: '🎮', desc: 'Discord is a communication platform for communities, gamers, and teams. Create servers, join voice channels, chat in real-time, and build communities around shared interests.' },
+    twitch:     { icon: '🎮', desc: 'Twitch is the world\'s leading live-streaming platform, primarily for gaming but also for music, art, talk shows, and creative content. Watch live or interact with streamers.' },
+    pinterest:  { icon: '📌', desc: 'Pinterest is a visual discovery engine for finding ideas like recipes, home decor, fashion, and DIY projects. Save and organize ideas through image "pins" on virtual boards.' },
+    medium:     { icon: '✍️', desc: 'Medium is an open publishing platform where writers and thinkers share ideas, stories, and perspectives on a wide range of topics — from technology and science to culture and self-improvement.' },
+    notion:     { icon: '📝', desc: 'Notion is an all-in-one workspace for notes, documents, project management, and collaboration. Used by teams and individuals to organize work and life in one place.' },
+    figma:      { icon: '🎨', desc: 'Figma is a collaborative design tool used by teams to create, prototype, and iterate on user interfaces and digital products in real time.' },
+    chatgpt:    { icon: '🤖', desc: 'ChatGPT by OpenAI is an AI chatbot powered by large language models. It can answer questions, write code, draft content, brainstorm ideas, and assist with many tasks.' },
+    canva:      { icon: '🖼️', desc: 'Canva is an online graphic design platform that makes it easy to create social media posts, presentations, posters, and other visual content with drag-and-drop tools.' },
+    zoom:       { icon: '📹', desc: 'Zoom is a leading video conferencing platform used for virtual meetings, webinars, and online collaboration. Trusted by businesses, schools, and individuals worldwide.' },
+    flipkart:   { icon: '🛍️', desc: 'Flipkart is one of India\'s largest e-commerce platforms, offering a wide range of products from electronics and fashion to home essentials with quick delivery across India.' },
+};
+
 // ── Actions ──
 function handleTime() {
     const now = new Date();
@@ -239,12 +268,15 @@ function handleTime() {
     const period = now.getHours() >= 12 ? 'PM' : 'AM';
     const h12 = now.getHours() % 12 || 12;
 
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'your local timezone';
+    const greeting = now.getHours() < 12 ? 'Good morning' : now.getHours() < 17 ? 'Good afternoon' : 'Good evening';
+
     const text = `The current time is ${h12}:${mins}:${secs} ${period}`;
     const html = `
-        <p>${text}</p>
-        <div class="action-card">
-            <span class="action-icon">🕐</span>
-            <span class="action-text"><strong>${hours}:${mins}:${secs}</strong> (${period})</span>
+        <p>${greeting}! ${text}.</p>
+        <div class="info-snippet">
+            <p>🕐 <strong>${hours}:${mins}:${secs}</strong> (${period})</p>
+            <p class="info-detail">Timezone: ${tz}</p>
         </div>
     `;
     addAssistantMessage(html, text);
@@ -255,12 +287,19 @@ function handleDate() {
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const formatted = now.toLocaleDateString('en-IN', options);
 
+    // Calculate day of year and days remaining
+    const startOfYear = new Date(now.getFullYear(), 0, 1);
+    const dayOfYear = Math.ceil((now - startOfYear) / 86400000);
+    const isLeap = (now.getFullYear() % 4 === 0 && now.getFullYear() % 100 !== 0) || now.getFullYear() % 400 === 0;
+    const totalDays = isLeap ? 366 : 365;
+    const daysLeft = totalDays - dayOfYear;
+
     const text = `Today's date is ${formatted}`;
     const html = `
         <p>${text}</p>
-        <div class="action-card">
-            <span class="action-icon">📅</span>
-            <span class="action-text"><strong>${formatted}</strong></span>
+        <div class="info-snippet">
+            <p>📅 <strong>${formatted}</strong></p>
+            <p class="info-detail">Day ${dayOfYear} of ${totalDays} — ${daysLeft} days remaining in ${now.getFullYear()}.</p>
         </div>
     `;
     addAssistantMessage(html, text);
@@ -279,21 +318,61 @@ function handleWikipedia(query) {
         return;
     }
 
-    const wikiUrl = `https://en.wikipedia.org/wiki/${encodeURIComponent(topic.replace(/\s+/g, '_'))}`;
     const searchUrl = `https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(topic)}`;
 
+    // Show initial message with loading state
     const text = `Searching Wikipedia for "${topic}"`;
-    const html = `
+    const msgId = `wiki-${Date.now()}`;
+    const loadingHtml = `
         <p>${text}</p>
+        <div class="info-snippet loading" id="${msgId}-info">
+            <div class="typing-indicator"><span></span><span></span><span></span></div>
+            <p class="info-detail">Fetching summary from Wikipedia...</p>
+        </div>
         <div class="action-card">
             <span class="action-icon">📖</span>
             <span class="action-text">
-                <a href="${searchUrl}" target="_blank" rel="noopener noreferrer">Open Wikipedia: ${topic}</a>
+                <a href="${searchUrl}" target="_blank" rel="noopener noreferrer">Open Wikipedia: ${escapeHtml(topic)}</a>
             </span>
         </div>
     `;
-    addAssistantMessage(html, text);
-    window.open(searchUrl, '_blank');
+    addAssistantMessage(loadingHtml, text);
+
+    // Fetch real summary from Wikipedia REST API
+    const apiUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(topic.replace(/\s+/g, '_'))}`;
+    fetch(apiUrl)
+        .then(res => {
+            if (!res.ok) throw new Error('Not found');
+            return res.json();
+        })
+        .then(data => {
+            const infoEl = document.getElementById(`${msgId}-info`);
+            if (infoEl && data.extract) {
+                const summary = data.extract.length > 300
+                    ? data.extract.substring(0, 300) + '...'
+                    : data.extract;
+                const thumbnail = data.thumbnail ? `<img src="${data.thumbnail.source}" alt="${escapeHtml(data.title)}" class="info-thumbnail">` : '';
+                infoEl.classList.remove('loading');
+                infoEl.innerHTML = `
+                    <div class="info-header">
+                        ${thumbnail}
+                        <div>
+                            <p class="info-title">📚 ${escapeHtml(data.title)}</p>
+                            <p class="info-detail">${data.description ? escapeHtml(data.description) : ''}</p>
+                        </div>
+                    </div>
+                    <p class="info-body">${escapeHtml(summary)}</p>
+                `;
+                scrollToBottom();
+            }
+        })
+        .catch(() => {
+            const infoEl = document.getElementById(`${msgId}-info`);
+            if (infoEl) {
+                infoEl.classList.remove('loading');
+                infoEl.innerHTML = `<p class="info-body">📖 Couldn't fetch a summary, but you can read more on the Wikipedia page linked below.</p>`;
+            }
+        });
 }
 
 function handleOpen(query) {
@@ -317,17 +396,37 @@ function handleOpen(query) {
         url = `https://www.${target}.com`;
     }
 
+    const siteKey = target.toLowerCase().replace(/\.com$/, '');
+    const siteInfo = KNOWN_SITES[siteKey];
+
     const text = `Opening ${target}`;
+    let infoBlock = '';
+    if (siteInfo) {
+        infoBlock = `
+            <div class="info-snippet">
+                <p class="info-title">${siteInfo.icon} ${capitalize(siteKey)}</p>
+                <p class="info-body">${siteInfo.desc}</p>
+            </div>
+        `;
+    } else {
+        infoBlock = `
+            <div class="info-snippet">
+                <p class="info-body">🌐 Opening <strong>${escapeHtml(target)}</strong> in a new tab. If the site doesn't load, the URL may need to be adjusted.</p>
+            </div>
+        `;
+    }
+
     const html = `
         <p>${text}</p>
+        ${infoBlock}
         <div class="action-card">
-            <span class="action-icon">🌐</span>
+            <span class="action-icon">🔗</span>
             <span class="action-text">
                 <a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>
             </span>
         </div>
     `;
-    addAssistantMessage(html, text);
+    addAssistantMessage(html, siteInfo ? `${text}. ${siteInfo.desc.split('.')[0]}.` : text);
     window.open(url, '_blank');
 }
 
@@ -344,14 +443,32 @@ function handleMap(query) {
         url = 'https://www.google.com/maps';
     }
 
-    const displayLocation = location || 'Google Maps';
+    const displayLocation = location || 'your current area';
     const text = `Opening ${displayLocation} on Google Maps`;
+
+    let infoBlock;
+    if (location) {
+        infoBlock = `
+            <div class="info-snippet">
+                <p class="info-title">📍 ${escapeHtml(capitalize(location))}</p>
+                <p class="info-body">Showing "${escapeHtml(location)}" on Google Maps. You can view the location, get directions, explore nearby places, check traffic conditions, and see street views.</p>
+            </div>
+        `;
+    } else {
+        infoBlock = `
+            <div class="info-snippet">
+                <p class="info-body">🗺️ Opening Google Maps. You can explore locations, get driving/walking directions, check live traffic, and view satellite imagery.</p>
+            </div>
+        `;
+    }
+
     const html = `
         <p>${text}</p>
+        ${infoBlock}
         <div class="action-card">
             <span class="action-icon">🗺️</span>
             <span class="action-text">
-                <a href="${url}" target="_blank" rel="noopener noreferrer">View on Google Maps${location ? ': ' + location : ''}</a>
+                <a href="${url}" target="_blank" rel="noopener noreferrer">View on Google Maps${location ? ': ' + escapeHtml(location) : ''}</a>
             </span>
         </div>
     `;
@@ -361,7 +478,13 @@ function handleMap(query) {
 
 function handleExit() {
     const text = "Goodbye! Shutting down. Refresh the page to restart.";
-    addAssistantMessage(`<p>${text} 👋</p>`, text);
+    const html = `
+        <p>${text} 👋</p>
+        <div class="info-snippet">
+            <p class="info-body">Thanks for using FOX Assistant! Press <strong>F5</strong> or click the browser refresh button to start a new session.</p>
+        </div>
+    `;
+    addAssistantMessage(html, text);
     setStatus('Stopped', '');
 
     // Disable inputs
@@ -380,10 +503,13 @@ function handleFallback(query) {
     const text = `I searched that on Google for you`;
     const html = `
         <p>${text}</p>
+        <div class="info-snippet">
+            <p class="info-body">🔎 I didn't recognize a specific command, so I searched Google for <strong>"${escapeHtml(query)}"</strong>. The results page should open in a new tab with relevant answers, articles, and resources.</p>
+        </div>
         <div class="action-card">
             <span class="action-icon">🔍</span>
             <span class="action-text">
-                <a href="${searchUrl}" target="_blank" rel="noopener noreferrer">Google: "${query}"</a>
+                <a href="${searchUrl}" target="_blank" rel="noopener noreferrer">Google: "${escapeHtml(query)}"</a>
             </span>
         </div>
     `;
@@ -525,6 +651,10 @@ function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
+}
+
+function capitalize(str) {
+    return str.replace(/\b\w/g, c => c.toUpperCase());
 }
 
 function scrollToBottom() {

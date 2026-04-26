@@ -451,6 +451,61 @@ body {
     text-decoration: underline;
 }
 
+/* Info snippets — brief information blocks */
+.info-snippet {
+    margin-top: 10px;
+    padding: 14px 16px;
+    background: linear-gradient(135deg, rgba(255, 140, 66, 0.04), rgba(255, 107, 53, 0.02));
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 140, 66, 0.1);
+    border-left: 3px solid var(--fox-orange);
+    transition: all 0.3s ease;
+}
+
+.info-snippet.loading {
+    border-left-color: var(--accent-purple);
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.04), rgba(167, 139, 250, 0.02));
+    border-color: rgba(167, 139, 250, 0.1);
+    border-left-color: var(--accent-purple);
+}
+
+.info-snippet .info-header {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.info-snippet .info-thumbnail {
+    width: 60px;
+    height: 60px;
+    border-radius: 6px;
+    object-fit: cover;
+    border: 1px solid var(--border-subtle);
+    flex-shrink: 0;
+}
+
+.info-snippet .info-title {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--fox-amber);
+    margin-bottom: 2px;
+}
+
+.info-snippet .info-detail {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: 4px;
+}
+
+.info-snippet .info-body {
+    font-size: 0.84rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-top: 6px;
+}
+
 /* Typing indicator */
 .typing-indicator {
     display: flex;
