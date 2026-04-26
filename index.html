@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOX Assistant — AI Voice Assistant</title>
+    <meta name="description" content="FOX Assistant is an intelligent voice-powered web assistant that responds to your commands. Open websites, search Wikipedia, get the time, navigate maps, and more — all by voice.">
+    <meta name="keywords" content="FOX Assistant, voice assistant, AI assistant, speech recognition, web assistant">
+    <meta name="author" content="Aradhya Srivastava">
+    <meta property="og:title" content="FOX Assistant — AI Voice Assistant">
+    <meta property="og:description" content="An intelligent voice-powered web assistant. Speak commands to search, navigate, and automate tasks.">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Animated background particles -->
+    <div class="bg-particles" id="bgParticles"></div>
+
+    <!-- Main container -->
+    <div class="app-container">
+
+        <!-- Header -->
+        <header class="app-header" id="appHeader">
+            <div class="header-left">
+                <div class="fox-logo" id="foxLogo">
+                    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Fox ears -->
+                        <path d="M12 8L20 28L8 24Z" fill="url(#earGrad)" stroke="#FF6B35" stroke-width="1.5"/>
+                        <path d="M52 8L44 28L56 24Z" fill="url(#earGrad)" stroke="#FF6B35" stroke-width="1.5"/>
+                        <!-- Fox face -->
+                        <ellipse cx="32" cy="36" rx="20" ry="18" fill="url(#faceGrad)" stroke="#FF8C42" stroke-width="1.5"/>
+                        <!-- Inner ears -->
+                        <path d="M15 14L20 26L11 23Z" fill="#FFB088" opacity="0.6"/>
+                        <path d="M49 14L44 26L53 23Z" fill="#FFB088" opacity="0.6"/>
+                        <!-- Eyes -->
+                        <ellipse cx="24" cy="33" rx="3.5" ry="4" fill="#1a1a2e"/>
+                        <ellipse cx="40" cy="33" rx="3.5" ry="4" fill="#1a1a2e"/>
+                        <circle cx="25.5" cy="31.5" r="1.2" fill="white" opacity="0.9"/>
+                        <circle cx="41.5" cy="31.5" r="1.2" fill="white" opacity="0.9"/>
+                        <!-- Nose -->
+                        <ellipse cx="32" cy="41" rx="3" ry="2" fill="#2d2d44"/>
+                        <!-- Mouth -->
+                        <path d="M29 44 Q32 47 35 44" stroke="#2d2d44" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+                        <!-- Cheek marks -->
+                        <path d="M13 36 L18 37" stroke="#FFB088" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+                        <path d="M13 38 L17 39" stroke="#FFB088" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+                        <path d="M51 36 L46 37" stroke="#FFB088" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+                        <path d="M51 38 L47 39" stroke="#FFB088" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+                        <defs>
+                            <linearGradient id="earGrad" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="#FF8C42"/>
+                                <stop offset="100%" stop-color="#FF6B35"/>
+                            </linearGradient>
+                            <linearGradient id="faceGrad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#FFB088"/>
+                                <stop offset="60%" stop-color="#FF8C42"/>
+                                <stop offset="100%" stop-color="#FF6B35"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="header-text">
+                    <h1>FOX <span class="accent">Assistant</span></h1>
+                    <p class="tagline">Voice-Powered Intelligence</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <a href="https://github.com/Aradhya-21/FOX-Assistant" target="_blank" rel="noopener noreferrer" class="github-link" id="githubLink" title="View on GitHub">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                    </svg>
+                </a>
+                <div class="status-badge" id="statusBadge">
+                    <span class="status-dot"></span>
+                    <span class="status-text" id="statusText">Idle</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Chat area -->
+        <main class="chat-area" id="chatArea">
+            <div class="chat-messages" id="chatMessages">
+                <!-- Welcome message -->
+                <div class="message assistant-message welcome-msg" id="welcomeMessage">
+                    <div class="message-avatar">
+                        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
+                            <path d="M12 8L20 28L8 24Z" fill="#FF8C42"/>
+                            <path d="M52 8L44 28L56 24Z" fill="#FF8C42"/>
+                            <ellipse cx="32" cy="36" rx="20" ry="18" fill="#FF8C42"/>
+                            <ellipse cx="24" cy="33" rx="3.5" ry="4" fill="#1a1a2e"/>
+                            <ellipse cx="40" cy="33" rx="3.5" ry="4" fill="#1a1a2e"/>
+                            <circle cx="25.5" cy="31.5" r="1.2" fill="white"/>
+                            <circle cx="41.5" cy="31.5" r="1.2" fill="white"/>
+                            <ellipse cx="32" cy="41" rx="3" ry="2" fill="#2d2d44"/>
+                        </svg>
+                    </div>
+                    <div class="message-content">
+                        <p class="message-sender">FOX Assistant</p>
+                        <p>👋 Hello! I'm <strong>FOX</strong>, your voice-powered assistant.</p>
+                        <p>Click the microphone button or type a command below to get started.</p>
+                        <div class="command-chips">
+                            <span class="chip" data-command="what time is it">🕐 What time is it?</span>
+                            <span class="chip" data-command="what is today's date">📅 Today's date</span>
+                            <span class="chip" data-command="search wikipedia for python">📖 Wikipedia search</span>
+                            <span class="chip" data-command="open youtube">🌐 Open website</span>
+                            <span class="chip" data-command="show map of new york">🗺️ Google Maps</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Input area -->
+        <footer class="input-area" id="inputArea">
+            <!-- Audio visualizer -->
+            <div class="visualizer-container" id="visualizerContainer">
+                <div class="visualizer" id="visualizer">
+                    <div class="viz-bar"></div><div class="viz-bar"></div><div class="viz-bar"></div>
+                    <div class="viz-bar"></div><div class="viz-bar"></div><div class="viz-bar"></div>
+                    <div class="viz-bar"></div><div class="viz-bar"></div><div class="viz-bar"></div>
+                    <div class="viz-bar"></div><div class="viz-bar"></div><div class="viz-bar"></div>
+                    <div class="viz-bar"></div><div class="viz-bar"></div><div class="viz-bar"></div>
+                </div>
+                <span class="viz-label" id="vizLabel">Listening...</span>
+            </div>
+
+            <div class="input-row">
+                <div class="text-input-wrap">
+                    <input type="text" id="textInput" placeholder="Type a command or click the mic..." autocomplete="off">
+                    <button class="send-btn" id="sendBtn" title="Send command">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </div>
+                <button class="mic-btn" id="micBtn" title="Start voice input">
+                    <div class="mic-pulse"></div>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24">
+                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                        <line x1="12" y1="19" x2="12" y2="23"></line>
+                        <line x1="8" y1="23" x2="16" y2="23"></line>
+                    </svg>
+                </button>
+            </div>
+            <p class="input-hint">Try: "What time is it?" · "Open YouTube" · "Search Wikipedia for AI" · "Show map of Tokyo"</p>
+        </footer>
+    </div>
+
+    <!-- Toast notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
