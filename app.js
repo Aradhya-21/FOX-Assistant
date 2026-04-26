@@ -684,7 +684,7 @@ function addMessage(text, sender) {
 
     const avatarSvg = sender === 'user'
         ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`
-        : `<svg viewBox="0 0 64 64" fill="none" width="28" height="28"><path d="M12 8L20 28L8 24Z" fill="#FF8C42"/><path d="M52 8L44 28L56 24Z" fill="#FF8C42"/><ellipse cx="32" cy="36" rx="20" ry="18" fill="#FF8C42"/><ellipse cx="24" cy="33" rx="3.5" ry="4" fill="#1a1a2e"/><ellipse cx="40" cy="33" rx="3.5" ry="4" fill="#1a1a2e"/><circle cx="25.5" cy="31.5" r="1.2" fill="white"/><circle cx="41.5" cy="31.5" r="1.2" fill="white"/><ellipse cx="32" cy="41" rx="3" ry="2" fill="#2d2d44"/></svg>`;
+        : `<svg viewBox="0 0 64 64" fill="none" width="28" height="28"><path d="M32 0v64M0 32h64" stroke="#00f3ff" stroke-width="0.5" opacity="0.15" stroke-dasharray="2 2" /><polygon points="12,8 24,24 16,30" fill="none" stroke="#ff00ea" stroke-width="1.5" /><polygon points="12,8 18,18 16,24" fill="#ff00ea" opacity="0.15" /><polygon points="52,8 40,24 48,30" fill="none" stroke="#ff00ea" stroke-width="1.5" /><polygon points="52,8 46,18 48,24" fill="#ff00ea" opacity="0.15" /><polygon points="24,24 40,24 52,36 32,54 12,36" fill="none" stroke="#00f3ff" stroke-width="1.5" /><polygon points="30,48 34,48 32,52" fill="#ff00ea" /><line x1="18" y1="34" x2="28" y2="36" stroke="#00f3ff" stroke-width="2.5" stroke-linecap="round" /><line x1="46" y1="34" x2="36" y2="36" stroke="#00f3ff" stroke-width="2.5" stroke-linecap="round" /></svg>`;
 
     msg.innerHTML = `
         <div class="message-avatar">${avatarSvg}</div>
@@ -702,7 +702,7 @@ function addAssistantMessage(html, speakText) {
     const msg = document.createElement('div');
     msg.classList.add('message', 'assistant-message');
 
-    const avatarSvg = `<svg viewBox="0 0 64 64" fill="none" width="28" height="28"><path d="M12 8L20 28L8 24Z" fill="#FF8C42"/><path d="M52 8L44 28L56 24Z" fill="#FF8C42"/><ellipse cx="32" cy="36" rx="20" ry="18" fill="#FF8C42"/><ellipse cx="24" cy="33" rx="3.5" ry="4" fill="#1a1a2e"/><ellipse cx="40" cy="33" rx="3.5" ry="4" fill="#1a1a2e"/><circle cx="25.5" cy="31.5" r="1.2" fill="white"/><circle cx="41.5" cy="31.5" r="1.2" fill="white"/><ellipse cx="32" cy="41" rx="3" ry="2" fill="#2d2d44"/></svg>`;
+    const avatarSvg = `<svg viewBox="0 0 64 64" fill="none" width="28" height="28"><path d="M32 0v64M0 32h64" stroke="#00f3ff" stroke-width="0.5" opacity="0.15" stroke-dasharray="2 2" /><polygon points="12,8 24,24 16,30" fill="none" stroke="#ff00ea" stroke-width="1.5" /><polygon points="12,8 18,18 16,24" fill="#ff00ea" opacity="0.15" /><polygon points="52,8 40,24 48,30" fill="none" stroke="#ff00ea" stroke-width="1.5" /><polygon points="52,8 46,18 48,24" fill="#ff00ea" opacity="0.15" /><polygon points="24,24 40,24 52,36 32,54 12,36" fill="none" stroke="#00f3ff" stroke-width="1.5" /><polygon points="30,48 34,48 32,52" fill="#ff00ea" /><line x1="18" y1="34" x2="28" y2="36" stroke="#00f3ff" stroke-width="2.5" stroke-linecap="round" /><line x1="46" y1="34" x2="36" y2="36" stroke="#00f3ff" stroke-width="2.5" stroke-linecap="round" /></svg>`;
 
     msg.innerHTML = `
         <div class="message-avatar">${avatarSvg}</div>
@@ -731,7 +731,7 @@ function showTypingIndicator() {
 
     msg.innerHTML = `
         <div class="message-avatar">
-            <svg viewBox="0 0 64 64" fill="none" width="28" height="28"><path d="M12 8L20 28L8 24Z" fill="#FF8C42"/><path d="M52 8L44 28L56 24Z" fill="#FF8C42"/><ellipse cx="32" cy="36" rx="20" ry="18" fill="#FF8C42"/><ellipse cx="24" cy="33" rx="3.5" ry="4" fill="#1a1a2e"/><ellipse cx="40" cy="33" rx="3.5" ry="4" fill="#1a1a2e"/><circle cx="25.5" cy="31.5" r="1.2" fill="white"/><circle cx="41.5" cy="31.5" r="1.2" fill="white"/><ellipse cx="32" cy="41" rx="3" ry="2" fill="#2d2d44"/></svg>
+            <svg viewBox="0 0 64 64" fill="none" width="28" height="28"><path d="M32 0v64M0 32h64" stroke="#00f3ff" stroke-width="0.5" opacity="0.15" stroke-dasharray="2 2" /><polygon points="12,8 24,24 16,30" fill="none" stroke="#ff00ea" stroke-width="1.5" /><polygon points="12,8 18,18 16,24" fill="#ff00ea" opacity="0.15" /><polygon points="52,8 40,24 48,30" fill="none" stroke="#ff00ea" stroke-width="1.5" /><polygon points="52,8 46,18 48,24" fill="#ff00ea" opacity="0.15" /><polygon points="24,24 40,24 52,36 32,54 12,36" fill="none" stroke="#00f3ff" stroke-width="1.5" /><polygon points="30,48 34,48 32,52" fill="#ff00ea" /><line x1="18" y1="34" x2="28" y2="36" stroke="#00f3ff" stroke-width="2.5" stroke-linecap="round" /><line x1="46" y1="34" x2="36" y2="36" stroke="#00f3ff" stroke-width="2.5" stroke-linecap="round" /></svg>
         </div>
         <div class="message-content">
             <div class="typing-indicator">
