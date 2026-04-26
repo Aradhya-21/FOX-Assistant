@@ -25,34 +25,38 @@
         <div class="wake-content">
             <div class="wake-fox" id="wakeFox">
                 <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 8L20 28L8 24Z" fill="url(#wEarGrad)" stroke="#FF6B35" stroke-width="1.5"/>
-                    <path d="M52 8L44 28L56 24Z" fill="url(#wEarGrad)" stroke="#FF6B35" stroke-width="1.5"/>
-                    <ellipse cx="32" cy="36" rx="20" ry="18" fill="url(#wFaceGrad)" stroke="#FF8C42" stroke-width="1.5"/>
-                    <path d="M15 14L20 26L11 23Z" fill="#FFB088" opacity="0.6"/>
-                    <path d="M49 14L44 26L53 23Z" fill="#FFB088" opacity="0.6"/>
-                    <ellipse cx="24" cy="33" rx="3.5" ry="4" fill="#1a1a2e"/>
-                    <ellipse cx="40" cy="33" rx="3.5" ry="4" fill="#1a1a2e"/>
-                    <circle cx="25.5" cy="31.5" r="1.2" fill="white" opacity="0.9"/>
-                    <circle cx="41.5" cy="31.5" r="1.2" fill="white" opacity="0.9"/>
-                    <ellipse cx="32" cy="41" rx="3" ry="2" fill="#2d2d44"/>
-                    <path d="M29 44 Q32 47 35 44" stroke="#2d2d44" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+                    <!-- Cyberpunk grid/data lines -->
+                    <path d="M32 0v64M0 32h64" stroke="#00f3ff" stroke-width="0.5" opacity="0.15" stroke-dasharray="2 2" />
+                    
+                    <!-- Left Ear -->
+                    <polygon points="12,8 24,24 16,30" fill="none" stroke="#ff00ea" stroke-width="1.5" />
+                    <polygon points="12,8 18,18 16,24" fill="#ff00ea" opacity="0.15" />
+                    
+                    <!-- Right Ear -->
+                    <polygon points="52,8 40,24 48,30" fill="none" stroke="#ff00ea" stroke-width="1.5" />
+                    <polygon points="52,8 46,18 48,24" fill="#ff00ea" opacity="0.15" />
+                    
+                    <!-- Main Face Polygon -->
+                    <polygon points="24,24 40,24 52,36 32,54 12,36" fill="none" stroke="#00f3ff" stroke-width="1.5" filter="drop-shadow(0 0 2px rgba(0, 243, 255, 0.5))" />
+                    
+                    <!-- Snout / Nose area -->
+                    <polygon points="26,38 38,38 32,50" fill="#00f3ff" opacity="0.1" stroke="#00f3ff" stroke-width="1" />
+                    <polygon points="30,48 34,48 32,52" fill="#ff00ea" filter="drop-shadow(0 0 3px #ff00ea)" />
+                    
+                    <!-- Cyber Eyes (SLEEPING - flat lines) -->
+                    <line x1="18" y1="35" x2="28" y2="35" stroke="#00f3ff" stroke-width="1.5" stroke-linecap="round" opacity="0.4" />
+                    <line x1="46" y1="35" x2="36" y2="35" stroke="#00f3ff" stroke-width="1.5" stroke-linecap="round" opacity="0.4" />
+                    
+                    <!-- Circuit lines -->
+                    <path d="M 32 24 L 32 32 M 32 32 L 26 38 M 32 32 L 38 38" stroke="#ff00ea" stroke-width="1" opacity="0.5" />
+                    <circle cx="32" cy="32" r="1.5" fill="#ff00ea" />
+                    
                     <!-- Sleeping eyes (zzz) -->
                     <g class="wake-zzz" id="wakeZzz">
-                        <text x="48" y="18" fill="#FF8C42" font-size="8" font-weight="bold" opacity="0.8">z</text>
-                        <text x="54" y="12" fill="#FF8C42" font-size="10" font-weight="bold" opacity="0.6">z</text>
-                        <text x="58" y="4" fill="#FF8C42" font-size="12" font-weight="bold" opacity="0.4">z</text>
+                        <text x="48" y="18" fill="#00f3ff" font-size="8" font-family="monospace" font-weight="bold" opacity="0.8">z</text>
+                        <text x="54" y="12" fill="#00f3ff" font-size="10" font-family="monospace" font-weight="bold" opacity="0.6">z</text>
+                        <text x="58" y="4" fill="#00f3ff" font-size="12" font-family="monospace" font-weight="bold" opacity="0.4">z</text>
                     </g>
-                    <defs>
-                        <linearGradient id="wEarGrad" x1="0" y1="0" x2="1" y2="1">
-                            <stop offset="0%" stop-color="#FF8C42"/>
-                            <stop offset="100%" stop-color="#FF6B35"/>
-                        </linearGradient>
-                        <linearGradient id="wFaceGrad" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stop-color="#FFB088"/>
-                            <stop offset="60%" stop-color="#FF8C42"/>
-                            <stop offset="100%" stop-color="#FF6B35"/>
-                        </linearGradient>
-                    </defs>
                 </svg>
             </div>
             <h2 class="wake-title">FOX is <span id="wakeState">sleeping</span></h2>
@@ -82,39 +86,31 @@
             <div class="header-left">
                 <div class="fox-logo" id="foxLogo">
                     <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Fox ears -->
-                        <path d="M12 8L20 28L8 24Z" fill="url(#earGrad)" stroke="#FF6B35" stroke-width="1.5"/>
-                        <path d="M52 8L44 28L56 24Z" fill="url(#earGrad)" stroke="#FF6B35" stroke-width="1.5"/>
-                        <!-- Fox face -->
-                        <ellipse cx="32" cy="36" rx="20" ry="18" fill="url(#faceGrad)" stroke="#FF8C42" stroke-width="1.5"/>
-                        <!-- Inner ears -->
-                        <path d="M15 14L20 26L11 23Z" fill="#FFB088" opacity="0.6"/>
-                        <path d="M49 14L44 26L53 23Z" fill="#FFB088" opacity="0.6"/>
-                        <!-- Eyes -->
-                        <ellipse cx="24" cy="33" rx="3.5" ry="4" fill="#1a1a2e"/>
-                        <ellipse cx="40" cy="33" rx="3.5" ry="4" fill="#1a1a2e"/>
-                        <circle cx="25.5" cy="31.5" r="1.2" fill="white" opacity="0.9"/>
-                        <circle cx="41.5" cy="31.5" r="1.2" fill="white" opacity="0.9"/>
-                        <!-- Nose -->
-                        <ellipse cx="32" cy="41" rx="3" ry="2" fill="#2d2d44"/>
-                        <!-- Mouth -->
-                        <path d="M29 44 Q32 47 35 44" stroke="#2d2d44" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-                        <!-- Cheek marks -->
-                        <path d="M13 36 L18 37" stroke="#FFB088" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
-                        <path d="M13 38 L17 39" stroke="#FFB088" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
-                        <path d="M51 36 L46 37" stroke="#FFB088" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
-                        <path d="M51 38 L47 39" stroke="#FFB088" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
-                        <defs>
-                            <linearGradient id="earGrad" x1="0" y1="0" x2="1" y2="1">
-                                <stop offset="0%" stop-color="#FF8C42"/>
-                                <stop offset="100%" stop-color="#FF6B35"/>
-                            </linearGradient>
-                            <linearGradient id="faceGrad" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0%" stop-color="#FFB088"/>
-                                <stop offset="60%" stop-color="#FF8C42"/>
-                                <stop offset="100%" stop-color="#FF6B35"/>
-                            </linearGradient>
-                        </defs>
+                        <!-- Cyberpunk grid/data lines -->
+                        <path d="M32 0v64M0 32h64" stroke="#00f3ff" stroke-width="0.5" opacity="0.15" stroke-dasharray="2 2" />
+                        
+                        <!-- Left Ear -->
+                        <polygon points="12,8 24,24 16,30" fill="none" stroke="#ff00ea" stroke-width="1.5" />
+                        <polygon points="12,8 18,18 16,24" fill="#ff00ea" opacity="0.15" />
+                        
+                        <!-- Right Ear -->
+                        <polygon points="52,8 40,24 48,30" fill="none" stroke="#ff00ea" stroke-width="1.5" />
+                        <polygon points="52,8 46,18 48,24" fill="#ff00ea" opacity="0.15" />
+                        
+                        <!-- Main Face Polygon -->
+                        <polygon points="24,24 40,24 52,36 32,54 12,36" fill="none" stroke="#00f3ff" stroke-width="1.5" filter="drop-shadow(0 0 2px rgba(0, 243, 255, 0.5))" />
+                        
+                        <!-- Snout / Nose area -->
+                        <polygon points="26,38 38,38 32,50" fill="#00f3ff" opacity="0.1" stroke="#00f3ff" stroke-width="1" />
+                        <polygon points="30,48 34,48 32,52" fill="#ff00ea" filter="drop-shadow(0 0 3px #ff00ea)" />
+                        
+                        <!-- Cyber Eyes -->
+                        <line x1="18" y1="34" x2="28" y2="36" stroke="#00f3ff" stroke-width="2.5" stroke-linecap="round" filter="drop-shadow(0 0 3px #00f3ff)" />
+                        <line x1="46" y1="34" x2="36" y2="36" stroke="#00f3ff" stroke-width="2.5" stroke-linecap="round" filter="drop-shadow(0 0 3px #00f3ff)" />
+                        
+                        <!-- Circuit lines -->
+                        <path d="M 32 24 L 32 32 M 32 32 L 26 38 M 32 32 L 38 38" stroke="#ff00ea" stroke-width="1" opacity="0.5" />
+                        <circle cx="32" cy="32" r="1.5" fill="#ff00ea" />
                     </svg>
                 </div>
                 <div class="header-text">
@@ -141,16 +137,23 @@
                 <!-- Welcome message -->
                 <div class="message assistant-message welcome-msg" id="welcomeMessage">
                     <div class="message-avatar">
-                        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
-                            <path d="M12 8L20 28L8 24Z" fill="#FF8C42"/>
-                            <path d="M52 8L44 28L56 24Z" fill="#FF8C42"/>
-                            <ellipse cx="32" cy="36" rx="20" ry="18" fill="#FF8C42"/>
-                            <ellipse cx="24" cy="33" rx="3.5" ry="4" fill="#1a1a2e"/>
-                            <ellipse cx="40" cy="33" rx="3.5" ry="4" fill="#1a1a2e"/>
-                            <circle cx="25.5" cy="31.5" r="1.2" fill="white"/>
-                            <circle cx="41.5" cy="31.5" r="1.2" fill="white"/>
-                            <ellipse cx="32" cy="41" rx="3" ry="2" fill="#2d2d44"/>
-                        </svg>
+                            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
+                                <!-- Cyberpunk grid/data lines -->
+                                <path d="M32 0v64M0 32h64" stroke="#00f3ff" stroke-width="0.5" opacity="0.15" stroke-dasharray="2 2" />
+                                <!-- Left Ear -->
+                                <polygon points="12,8 24,24 16,30" fill="none" stroke="#ff00ea" stroke-width="1.5" />
+                                <polygon points="12,8 18,18 16,24" fill="#ff00ea" opacity="0.15" />
+                                <!-- Right Ear -->
+                                <polygon points="52,8 40,24 48,30" fill="none" stroke="#ff00ea" stroke-width="1.5" />
+                                <polygon points="52,8 46,18 48,24" fill="#ff00ea" opacity="0.15" />
+                                <!-- Main Face Polygon -->
+                                <polygon points="24,24 40,24 52,36 32,54 12,36" fill="none" stroke="#00f3ff" stroke-width="1.5" />
+                                <!-- Snout / Nose area -->
+                                <polygon points="30,48 34,48 32,52" fill="#ff00ea" />
+                                <!-- Cyber Eyes -->
+                                <line x1="18" y1="34" x2="28" y2="36" stroke="#00f3ff" stroke-width="2.5" stroke-linecap="round" />
+                                <line x1="46" y1="34" x2="36" y2="36" stroke="#00f3ff" stroke-width="2.5" stroke-linecap="round" />
+                            </svg>
                     </div>
                     <div class="message-content">
                         <p class="message-sender">FOX Assistant</p>
