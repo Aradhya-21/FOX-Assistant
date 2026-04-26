@@ -190,7 +190,7 @@ function activateAssistant() {
 
         // Add wake-up message to chat
         const html = `
-            <p>🦊 <strong>FOX is awake!</strong> I'm ready to help.</p>
+            <p>⚡ <strong>SYSTEM ONLINE.</strong> FOX is awake and ready.</p>
             <div class="info-snippet">
                 <p class="info-body">I'm listening for your commands now. You can use voice (click the mic) or type in the input box. Say <strong>"sleep"</strong> to put me back to sleep mode.</p>
             </div>
@@ -621,11 +621,11 @@ function handleMap(query) {
 }
 
 function handleSleep() {
-    const text = "Going to sleep. Say 'FOX' to wake me up.";
+    const text = "Entering sleep mode. Say 'FOX' to wake me up.";
     const html = `
-        <p>🦊 <strong>Going to sleep.</strong></p>
+        <p>💤 <strong>ENTERING SLEEP MODE.</strong></p>
         <div class="info-snippet">
-            <p class="info-body">I'm entering sleep mode. Say <strong>"FOX"</strong> when you need me again.</p>
+            <p class="info-body">System is going offline. Say <strong>"FOX"</strong> when you need me again.</p>
         </div>
     `;
     addAssistantMessage(html, text);
