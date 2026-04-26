@@ -318,10 +318,10 @@ const INTENTS = {
     time:  ['time', 'clock', 'what time'],
     date:  ['date', 'day', 'today'],
     wiki:  ['wikipedia', 'wiki', 'tell me about'],
-    open:  ['open', 'launch', 'go to'],
-    map:   ['map', 'maps', 'google map', 'navigate', 'location', 'directions'],
     sleep: ['sleep', 'go to sleep', 'nap', 'hibernate'],
     exit:  ['exit', 'stop', 'quit', 'goodbye', 'bye'],
+    open:  ['open', 'launch', 'go to'],
+    map:   ['map', 'maps', 'google map', 'navigate', 'location', 'directions'],
 };
 
 function detectIntent(query) {
